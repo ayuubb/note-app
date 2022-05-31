@@ -2,13 +2,19 @@ import React from 'react';
 import NoteItem from './NoteItem';
 
 export default function NoteList(props) {
-  const { items, onDelete } = props;
+  const { items, onDelete, onArchive } = props;
 
   if (items.length > 0) {
     return (
       <div className="note__list grid">
         {items.map((item) => (
-          <NoteItem key={item.id} id={item.id} onDelete={onDelete} {...item} />
+          <NoteItem
+            key={item.id}
+            id={item.id}
+            onDelete={onDelete}
+            onArchive={onArchive}
+            {...item}
+          />
         ))}
       </div>
     );

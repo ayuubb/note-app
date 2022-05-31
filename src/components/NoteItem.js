@@ -4,12 +4,17 @@ import ArchiveButton from './ArchiveButton';
 import NoteBody from './NoteBody';
 
 export default function NoteItem(props) {
-  const { title, body, createdAt, id, onDelete } = props;
+  const { title, body, createdAt, id, onDelete, onArchive, archived } = props;
   return (
-    <div>
-      <NoteBody title={title} body={body} createdAt={createdAt} />
+    <div className="note__item">
+      <NoteBody
+        title={title}
+        body={body}
+        createdAt={createdAt}
+        archived={archived}
+      />
       <DeleteButton id={id} onDelete={onDelete} />
-      <ArchiveButton />
+      <ArchiveButton id={id} onArchive={onArchive} />
     </div>
   );
 }
