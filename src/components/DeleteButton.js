@@ -8,7 +8,7 @@ export default function DeleteButton(props) {
         onDelete(id);
       }}
     >
-      DeleteButton
+      <box-icon name="x"></box-icon>
     </button>
   );
 }

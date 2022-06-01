@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { getInitialData } from '../utils/data';
+import { getInitialData, showFormattedDate } from '../utils/data';
 import NoteList from '../components/NoteList';
 import NoteInput from '../components/NoteInput';
+import NoteSearch from '../components/NoteSearch';
 
 export default class NoteApps extends Component {
   constructor(props) {
@@ -14,15 +15,7 @@ export default class NoteApps extends Component {
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.activeNote = this.activeNote.bind(this);
-    this.activedNote = this.activedNote.bind(this);
-  }
-
-  activeNote() {
-    this.state.data.filter((note) => !note.archived);
-  }
-  activedNote() {
-    this.state.data.filter((note) => note.archived);
+    this.onSearchHandler = this.onSearchHandler.bind(this);
   }
 
   onDeleteHandler(id) {
@@ -35,8 +28,6 @@ export default class NoteApps extends Component {
     this.state.data.map((item) => {
       if (item.id === id) {
         item.archived = !item.archived;
-        console.log(item.id, item.archived);
-        console.log(this.state.data);
         this.setState((prevState) => {
           return {
             data: [...prevState.data],
@@ -54,28 +45,37 @@ export default class NoteApps extends Component {
             id: +new Date(),
             title,
             body,
-            createdAt: new Date().toLocaleString(),
+            createdAt: showFormattedDate(+new Date()),
             archived: false,
           },
         ],
       };
     });
-    console.log(this.state.data);
+  }
+
+  onSearchHandler(query) {
+    const data = this.state.data.filter((item) => {
+      item.title && item.title.toLocaleLowerCase().includes(query.toLowerCase);
+    });
+    this.setState({
+      data: data,
+    });
   }
 
   render() {
     return (
       <div className="container">
         <NoteInput addNote={this.onAddNoteHandler} />
+        {/* <NoteSearch searchTitle={this.onSearchHandler} /> */}
         <h1>Note Active</h1>
         <NoteList
-          items={this.activedNote}
+          items={this.state.data.filter((item) => !item.archived)}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
         />
         <h1>Note Archive</h1>
         <NoteList
-          items={this.activeNote}
+          items={this.state.data.filter((item) => item.archived)}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
         />

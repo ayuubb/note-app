@@ -3,12 +3,24 @@
 
 .note {
   &__body {
-    &-description,
-    &-date {
+    height: 100%;
+    &-title {
+      // padding: 10px;
+    }
+    &-description {
       font-size: 0.875rem;
+      padding: 20px;
     }
     &-date {
       color: rgb(192, 192, 192);
+    }
+    &-header {
+      background-color: aquamarine;
+      padding: 10px 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
     }
   }
   &__list {
@@ -16,7 +28,19 @@
     gap: 2rem;
   }
   &__item {
-    padding: 2.5rem 3rem 2rem 1.5rem;
+    // padding: 2.5rem 3rem 2rem 1.5rem;
     background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+    &-action {
+      width: 100%;
+      padding: 10px;
+    }
   }
+}
+
+.btn-archive {
+  margin-left: auto;
 }
