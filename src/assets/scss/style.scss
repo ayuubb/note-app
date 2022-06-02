@@ -5,22 +5,28 @@
   &__body {
     height: 100%;
     &-title {
-      // padding: 10px;
+      color: #232b2d;
+      max-width: 200px;
+      word-wrap: break-word;
     }
     &-description {
       font-size: 0.875rem;
       padding: 20px;
+      text-align: left;
+      word-break: break-word;
     }
     &-date {
-      color: rgb(192, 192, 192);
+      color: #232b2d;
+      font-size: 0.75rem;
     }
     &-header {
-      background-color: aquamarine;
+      // background-color: aquamarine;
       padding: 10px 20px;
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      border-radius: 10px 10px 0 0;
     }
   }
   &__list {
@@ -29,11 +35,14 @@
   }
   &__item {
     // padding: 2.5rem 3rem 2rem 1.5rem;
-    background-color: aliceblue;
+    // background-color: aliceblue;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     height: 100%;
+    box-shadow: 100px 35px 171px rgba(0, 0, 0, 0.1);
+    transition: ease-out 0.5s;
     &-action {
       width: 100%;
       padding: 10px;
