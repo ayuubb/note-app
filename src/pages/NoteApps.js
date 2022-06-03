@@ -39,6 +39,7 @@ export default class NoteApps extends Component {
   }
 
   onArchiveHandler(id) {
+    // eslint-disable-next-line array-callback-return
     this.state.data.map((item) => {
       if (item.id === id) {
         item.archived = !item.archived;
