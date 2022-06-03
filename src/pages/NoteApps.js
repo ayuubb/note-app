@@ -9,28 +9,43 @@ export default class NoteApps extends Component {
     super(props);
 
     this.state = {
+      initialData: getInitialData(),
       data: getInitialData(),
     };
 
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
     this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.onSearchHandler = this.onSearchHandler.bind(this);
+    this.onSearchingHandler = this.onSearchingHandler.bind(this);
+  }
+
+  onResetData() {
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        data: this.state.initialData,
+      };
+    });
   }
 
   onDeleteHandler(id) {
     const data = this.state.data.filter((note) => note.id !== id);
-    this.setState({ data });
+    this.setState(() => {
+      return {
+        data: data,
+        initialData: data,
+      };
+    });
   }
 
   onArchiveHandler(id) {
-    console.log('cek', id);
     this.state.data.map((item) => {
       if (item.id === id) {
         item.archived = !item.archived;
         this.setState((prevState) => {
           return {
             data: [...prevState.data],
+            initialData: [...prevState.data],
           };
         });
       }
@@ -38,27 +53,33 @@ export default class NoteApps extends Component {
   }
   onAddNoteHandler({ title, body }) {
     this.setState((prevState) => {
+      const data = [
+        ...prevState.data,
+        {
+          id: +new Date(),
+          title,
+          body,
+          createdAt: showFormattedDate(+new Date()),
+          archived: false,
+        },
+      ];
       return {
-        data: [
-          ...prevState.data,
-          {
-            id: +new Date(),
-            title,
-            body,
-            createdAt: showFormattedDate(+new Date()),
-            archived: false,
-          },
-        ],
+        data: data,
+        initialData: data,
       };
     });
   }
 
-  onSearchHandler(query) {
-    const data = this.state.data.filter((item) => {
-      item.title && item.title.toLocaleLowerCase().includes(query.toLowerCase);
-    });
-    this.setState({
-      data: data,
+  onSearchingHandler(keyword) {
+    this.onResetData();
+
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        data: prevState.data.filter((item) =>
+          item.title.toLowerCase().includes(keyword.toLowerCase())
+        ),
+      };
     });
   }
 
@@ -66,14 +87,14 @@ export default class NoteApps extends Component {
     return (
       <div className="container">
         <NoteInput addNote={this.onAddNoteHandler} />
-        {/* <NoteSearch searchTitle={this.onSearchHandler} /> */}
-        <h1>Note Active</h1>
+        <NoteSearch onSearchingHandler={this.onSearchingHandler} />
+        <h2 className="title">Note Active</h2>
         <NoteList
           items={this.state.data.filter((item) => !item.archived)}
           onDelete={this.onDeleteHandler}
           onArchive={this.onArchiveHandler}
         />
-        <h1>Note Archive</h1>
+        <h2 className="title">Note Archive</h2>
         <NoteList
           items={this.state.data.filter((item) => item.archived)}
           onDelete={this.onDeleteHandler}

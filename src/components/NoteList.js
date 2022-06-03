@@ -17,7 +17,7 @@ export default function NoteList(props) {
           />
         ))
       ) : (
-        <h1>catatan tidak tersedia</h1>
+        <h2>catatan tidak tersedia</h2>
       )}
     </div>
   );

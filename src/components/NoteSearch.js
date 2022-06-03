@@ -4,20 +4,11 @@ export default class NoteSearch extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      title: '',
-    };
-
-    this.onTitleChangeHandler = this.onTitleChangeHandler.bind(this);
+    this.onSearchHandler = this.onSearchHandler.bind(this);
   }
 
-  onTitleChangeHandler(event) {
-    this.props.searchTitle(event.target.value);
-    this.setState(() => {
-      return {
-        title: event.target.value,
-      };
-    });
+  onSearchHandler(event) {
+    this.props.onSearchingHandler(event.target.value);
   }
 
   render() {
@@ -26,10 +17,10 @@ export default class NoteSearch extends Component {
         <form>
           <div className="note__search">
             <input
+              className="input-area"
               type="text"
-              value={this.state.title}
-              placeholder="cari catatan"
-              onChange={this.onTitleChangeHandler}
+              placeholder="search"
+              onChange={this.onSearchHandler}
             />
           </div>
         </form>
