@@ -1,30 +1,18 @@
-import React, { Component } from 'react';
-import autoBindReact from 'auto-bind/react';
-
-export default class NoteSearch extends Component {
-  constructor(props) {
-    super(props);
-    autoBindReact(this);
-  }
-
-  onSearchHandler(event) {
-    this.props.onSearchingHandler(event.target.value);
-  }
-
-  render() {
-    return (
-      <div>
-        <form>
-          <div className="note__search">
-            <input
-              className="input-area"
-              type="text"
-              placeholder="search"
-              onChange={this.onSearchHandler}
-            />
-          </div>
-        </form>
-      </div>
-    );
-  }
+import React from 'react';
+export default function NoteSearch(props) {
+  const { onSearchingHandler } = props;
+  return (
+    <div>
+      <form>
+        <div className="note__search">
+          <input
+            className="input-area"
+            type="text"
+            placeholder="search"
+            onChange={(e) => onSearchingHandler(e.target.value)}
+          />
+        </div>
+      </form>
+    </div>
+  );
 }
