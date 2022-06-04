@@ -3,20 +3,17 @@ import { getInitialData, showFormattedDate } from '../utils/data';
 import NoteList from '../components/NoteList';
 import NoteInput from '../components/NoteInput';
 import NoteSearch from '../components/NoteSearch';
+import autoBindReact from 'auto-bind/react';
 
 export default class NoteApps extends Component {
   constructor(props) {
     super(props);
+    autoBindReact(this);
 
     this.state = {
       initialData: getInitialData(),
       data: getInitialData(),
     };
-
-    this.onDeleteHandler = this.onDeleteHandler.bind(this);
-    this.onAddNoteHandler = this.onAddNoteHandler.bind(this);
-    this.onArchiveHandler = this.onArchiveHandler.bind(this);
-    this.onSearchingHandler = this.onSearchingHandler.bind(this);
   }
 
   onResetData() {

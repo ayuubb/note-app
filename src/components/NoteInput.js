@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import autoBindReact from 'auto-bind/react';
 
 export default class NoteInput extends Component {
   constructor(props) {
     super(props);
+    autoBindReact(this);
 
     this.state = {
       title: '',
       body: '',
     };
-
-    this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
-    this.onSubmitHandeler = this.onSubmitHandeler.bind(this);
-    this.handleLimitTitle = this.handleLimitTitle.bind(this);
   }
 
   onBodyChangeEventHandler(event) {

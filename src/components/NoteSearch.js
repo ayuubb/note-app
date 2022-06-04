@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import autoBindReact from 'auto-bind/react';
 
 export default class NoteSearch extends Component {
   constructor(props) {
     super(props);
-
-    this.onSearchHandler = this.onSearchHandler.bind(this);
+    autoBindReact(this);
   }
 
   onSearchHandler(event) {
